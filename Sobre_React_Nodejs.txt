@@ -1,0 +1,14 @@
+A arquitetura da segunda página é uma arquitetura 3 camadas com front-end desacoplado da aplicaçao, o fornt-end consome APIs. Este tipo de abordagem possibilita que a aplicação seja acessada por multiplos dispositivos, e seja disponibilizadas para outras instituições, seguindo obviamente ospadrões de segurança.
+
+Pode ser formada por servidores dentro do datacenter próprio(VMWare) porém com o advento dos clouds services hoje em dia conseguimos subir aplicações com essa arquitetura com os microserviçoes.
+
+Podemos publicar essa arquitetura na AWS, Azure, Heroku e outros.
+Definir nodes, e recursos em apenas alguns cliques.
+
+O HA no node, horizontalmente se dá com a raplicação dos pacotes da aplicação e incluindo novos nodes, ou em um só servidor podemos usar o módulo cluster do nodejs e trabalhar com workers, cluster.fork, usando a quantidade de CPUs.
+
+Para acesso via PC fornt-end React e para acesso mobile React Native.
+
+Para consultas rápidas o Redis cabe aqui também.
+
+O teste fala de menor número de requisições possível pois precisa ser rápido, entendo que com o cache server, a manpulação das imagens, tenhamos uma boa parfornance, acredito que no caso dos requests, devemos procurar ajustar o http para ter requests co menos custo, mais leves.
