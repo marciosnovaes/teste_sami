@@ -1,0 +1,30 @@
+A arquitetura da primeira página é uma arquitetura 3 camadas clássica, que pode ser formada
+por servidores dentro do datacenter próprio(VMWare) ou contratando um IaaS, usando Angular como front e java como back-end.
+Desenho todo feito em HA ativo/ativo
+
+Um balanceador de carga um F5 com o pool de servidores web configurado
+
+*Servidores sempre linux*
+
+Para os webservers:
+Produtos: IHS ou um Apache
+Discos locais entre volumes dos produtos e do S.O entorno de 100gb
+Recursos duas máquinas 16 x 4(memória x core)
+
+Para o middleware( Applications Servers):
+Produtos: Websphere, Jboss, weblogic nas suas ultimas versões
+Discos locais entre volumes dos produtos e do S.O entorno de 100gb( porém muita atenção pois ness pontos temos logs bem verboos)
+Recursos: 32 x 8 (memória x core)
+Jvms com clustes verticais e horizontais, sendo verticais duas ou mais jvms no mesmo node e horizontais cluester entre os nodes.
+Um heap de 2 a 4gb por jvm(na arquitetura 64bit vai até 20gb se eu não me engano, porém não pode ser muito grande pois torna a passagem do GC terrível)
+
+Para bando de dados:
+Produtos: oracle RAC ou mysql multi-node
+Precisa de discos locais e volumes de storage
+Recursos: 32 x 8 (memória x core)
+
+O teste aborda a necessidade de cosultas rápidas, acredito que um cache com um servidor Redis ajude a agilizar as consultas.
+
+Com relação a otimização de tamanho das imagens, nesse caso com o java temos alguns pacotes para essa manipulação, por exemplo thumbnail, mas devem ter outros.
+
+O teste fala de menor número de requisições possível pois precisa ser rápido, entendo que com o cache server, a manpulação das imagens, tenhamos uma boa parfornance, acredito que no caso dos requests, devemos procurar ajustar o http para ter requests co menos custo, mais leves.
